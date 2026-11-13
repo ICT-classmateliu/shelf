@@ -330,7 +330,12 @@
     }
   });
 
-  $("#item-form").elements.cover.addEventListener("input", () => { selectedCover = ""; $("#cover-info").textContent = "支持 JPG、PNG、WebP，自动缩小保存"; });
+  $("#item-form").elements.cover.addEventListener("input", () => {
+    uploadToken += 1;
+    selectedCover = "";
+    $("#save-button").disabled = false;
+    $("#cover-info").textContent = "支持 JPG、PNG、WebP，自动缩小保存";
+  });
   $("#clear-cover").addEventListener("click", () => {
     uploadToken += 1;
     selectedCover = "";

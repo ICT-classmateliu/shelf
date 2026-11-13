@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.mjs",
-    "test": "node --test tests/collection.test.cjs"
+    "test": "node --test"
   },
   "engines": {
     "node": ">=18"
