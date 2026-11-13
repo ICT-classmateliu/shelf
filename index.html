@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f5f0">
+  <meta name="description" content="一个属于自己的收藏展厅。记录书籍、电影、游戏和音乐，保存每一份喜欢。">
+  <title>Shelf · 私人收藏展厅</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="config.js"></script>
+  <script defer src="demo.js"></script>
+  <script defer src="collection.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到收藏内容</a>
+  <aside class="sidebar">
+    <a class="brand" href="index.html" aria-label="收藏展厅首页"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span id="brand-name">Shelf.</span></a>
+    <p class="brand-subtitle" id="brand-subtitle">私人收藏展厅</p>
+    <nav aria-label="展厅导航">
+      <button class="nav-button active" id="gallery-nav" aria-current="page"><span aria-hidden="true">▦</span> 我的展厅</button>
+      <button class="nav-button" id="stats-nav"><span aria-hidden="true">▥</span> 收藏统计</button>
+      <h2 class="nav-label">分类</h2>
+      <div id="categories"></div>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-button" id="import-button"><span aria-hidden="true">↥</span> 导入收藏</button>
+      <button class="nav-button" id="export-button"><span aria-hidden="true">↧</span> 导出备份</button>
+      <p class="storage-note"><span class="status-dot"></span> 保存在当前浏览器</p>
+    </div>
+  </aside>
+  <main id="main">
+    <header class="topbar"><span id="breadcrumb">我的 / 收藏展厅</span><button class="button primary" id="add-button"><span aria-hidden="true">＋</span> 添加收藏</button></header>
+    <div id="storage-warning" class="warning" role="alert" hidden></div>
+    <section class="page-heading"><div><p class="eyebrow">PERSONAL COLLECTION</p><h1 id="page-title">我的收藏展厅</h1><p id="page-description">书、电影、游戏，以及那些值得留下的喜欢。</p></div><div class="collection-seal" aria-hidden="true"><span>藏</span><small>SHELF</small></div></section>
+    <section id="summary" class="summary" aria-label="收藏概况"></section>
+    <section id="gallery-panel" aria-label="收藏列表">
+      <div class="collection-tools"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索名称、创作者或标签…" aria-label="搜索收藏"></label><div class="tools-right"><label class="sr-only" for="sort">排序</label><select id="sort"><option value="recent">最近更新</option><option value="rating">评分优先</option><option value="title">名称排序</option></select><div class="view-toggle" aria-label="显示方式"><button id="grid-view" class="selected" aria-label="网格视图" aria-pressed="true">▦</button><button id="list-view" aria-label="列表视图" aria-pressed="false">☷</button></div></div></div>
+      <div class="filter-row"><div id="status-filters" class="status-filters" aria-label="进度筛选"></div><span id="result-count" role="status"></span></div>
+      <div class="demo-notice" id="demo-notice" hidden><span>正在展示虚构示例，点击卡片体验详情与编辑。</span><button id="remove-demo">移除示例</button></div>
+      <div id="collection-grid" class="collection-grid"></div>
+      <div id="empty-state" class="empty-state" hidden><span aria-hidden="true">＋</span><h2 id="empty-title">为你的第一份喜欢留个位置</h2><p id="empty-description">一本书、一部电影，或一张反复播放的唱片。</p><button class="button" id="empty-action">添加收藏</button></div>
+    </section>
+    <section id="stats-panel" hidden aria-label="详细收藏统计"></section>
+    <footer><span>Shelf · 喜欢的事物，慢慢收藏</span><button id="load-demo" class="text-button">添加示例收藏</button></footer>
+  </main>
+  <input type="file" id="import-file" accept=".json,application/json" hidden>
+  <dialog id="detail-dialog" aria-labelledby="detail-title"><div id="detail-content"></div></dialog>
+  <dialog id="edit-dialog" aria-labelledby="edit-title">
+    <form id="item-form"><div class="dialog-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2 id="edit-title">添加收藏</h2></div><button type="button" class="icon-button close-edit" aria-label="关闭编辑">×</button></div>
+      <div class="form-content"><div class="form-row"><label class="wide">名称 <span class="required">*</span><input name="title" maxlength="120" required placeholder="这份喜欢叫什么？"></label></div>
+      <div class="form-row"><label>分类<select name="category" required></select></label><label>进度<select name="status"><option value="wishlist">想体验</option><option value="active">进行中</option><option value="done">已完成</option></select></label></div>
+      <div class="form-row"><label>创作者<input name="creator" maxlength="120" placeholder="作者、导演、开发者…"></label><label>年份<input name="year" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="例如 2025"></label></div>
+      <div class="form-row"><label>评分<select name="rating"><option value="0">尚未评分</option><option value="1">★ · 1 分</option><option value="2">★★ · 2 分</option><option value="3">★★★ · 3 分</option><option value="4">★★★★ · 4 分</option><option value="5">★★★★★ · 5 分</option></select></label><label>标签<input name="tags" maxlength="1000" placeholder="用逗号分隔，例如 科幻, 重温"></label></div>
+      <label>封面图片<input name="cover" maxlength="2000" placeholder="粘贴 https:// 图片链接，或从本地选择"></label><div class="image-upload"><label class="button small" for="cover-file">选择本地图片</label><input id="cover-file" type="file" accept="image/png,image/jpeg,image/webp" hidden><span id="cover-info">支持 JPG、PNG、WebP，自动缩小保存</span><button type="button" class="text-button" id="clear-cover">移除封面</button></div>
+      <label>收藏笔记<textarea name="notes" rows="4" maxlength="10000" placeholder="记下喜欢的理由，或下次想重温的片段。"></textarea></label>
+      <p class="form-error" id="form-error" role="alert" hidden></p></div>
+      <div class="dialog-actions"><button type="button" class="button close-edit">取消</button><button type="submit" class="button primary" id="save-button">保存收藏</button></div>
+    </form>
+  </dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="confirm-body"><h2 id="confirm-title"></h2><p id="confirm-text"></p><div class="dialog-actions"><button class="button" id="confirm-no">取消</button><button class="button danger" id="confirm-yes">确定</button></div></div></dialog>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
+
